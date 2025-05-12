@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Factorial Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Factorial Calculator</h1>
+    
+    <input type="number" id="numberInput" placeholder="Enter a positive integer" />
+    
+    <select id="methodSelect">
+      <option value="iterative">Iterative Method</option>
+      <option value="recursive">Recursive Method</option>
+    </select>
+    
+    <button onclick="calculateFactorial()">Calculate</button>
+    
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateFactorial() {
+      const num = document.getElementById('numberInput').value;
+      const method = document.getElementById('methodSelect').value;
+      const resultDiv = document.getElementById('result');
+      
+      // Input validation
+      if (num === '' || isNaN(num) || num < 0 || !Number.isInteger(Number(num))) {
+        resultDiv.innerHTML = "❌ Please enter a valid positive integer.";
+        return;
+      }
+
+      let factorial;
+      if (method === 'iterative') {
+        factorial = iterativeFactorial(Number(num));
+      } else {
+        factorial = recursiveFactorial(Number(num));
+      }
+
+      resultDiv.innerHTML = `✅ Factorial of ${num} is <strong>${factorial}</strong> (using ${method} method)`;
+    }
+
+    function iterativeFactorial(n) {
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function recursiveFactorial(n) {
+      if (n === 0 || n === 1) return 1;
+      return n * recursiveFactorial(n - 1);
+    }
+  </script>
+
+</body>
+</html>
